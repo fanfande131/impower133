@@ -4,3 +4,8 @@
 .httr-oauth
 .DS_Store
 .quarto
+.positai
+.Ruserdata
+*.csv
+*.png
+test_output

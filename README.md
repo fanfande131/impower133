@@ -18,7 +18,7 @@ install.packages("impower133")
 
 Or install the development version from GitHub:
 
-remotes::install_github("your-username/impower133")
+remotes::install_github("fanfande131/impower133")
 
 ## Functions
 
@@ -42,58 +42,26 @@ plot_figure2c() - Generate Figure 2C: Subgroup forest plot
 
 ## Usage
 
-library(impower133)
-
-# Simulate baseline data with OS survival outcomes
-df <- simulate_impower133(
-  seed = 21,
-  os_path = "path/to/reconstructed_os.csv",
-  method = "random",
-  output_path = "simulated_data.csv"
-)
-
-# Generate tables
-t1 <- make_table1(df)
-t2 <- make_table2(df)
-t3 <- make_table3(df)
-
-# Save tables as HTML
-gt::gtsave(t1, "table1.html")
-gt::gtsave(t2, "table2.html")
-gt::gtsave(t3, "table3.html")
-
-# Plot OS K-M curve
-plot_survival(
-  "path/to/reconstructed_os.csv",
-  type = "OS",
-  output_path = "figure2a.png"
-)
-
-# Plot subgroup forest plot
-plot_figure2c(df, output_path = "figure2c.png")
+See inst/examples/test_impower133.R for a complete example.
 
 ## Data Sources
 
-The individual patient data (IPD) used in this package was reconstructed from
-the published Kaplan-Meier curves of the IMpower133 trial. The reconstruction
-process was performed using the IPDfromKM web application, available at:
+The individual patient data was reconstructed from published Kaplan-Meier
+curves using the IPDfromKM web application:
 
 https://biostatistics.mdanderson.org/shinyapps/IPDfromKM/
 
-This tool implements the method described by Liu et al. (2021) to extract
-coordinates from Kaplan-Meier plots and estimate the underlying patient-level
-survival data.
+Method reference:
+Liu N, Zhou Y, Lee JJ. IPDfromKM: reconstruct individual patient data
+from published Kaplan-Meier survival curves. BMC Med Res Methodol.
+2021;21(1):111.
 
-## Dependencies
-
-R (>= 4.0.0), survival, survminer, gt, forestplot, ggplot2, IPDfromKM
-
-## License
-
-MIT
-
-## References
+## Trial Reference
 
 Horn L, Mansfield AS, Szczesna A, et al. First-Line Atezolizumab plus
 Chemotherapy in Extensive-Stage Small-Cell Lung Cancer. N Engl J Med.
 2018;379:2220-2229. doi:10.1056/NEJMoa1809064
+
+## License
+
+MIT
