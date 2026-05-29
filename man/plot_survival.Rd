@@ -7,7 +7,7 @@
 plot_survival(
   ipd_data,
   type = c("OS", "PFS"),
-  output_path = NULL,
+  output_path = tempfile(fileext = ".png"),
   width = 10,
   height = 6
 )
@@ -20,6 +20,9 @@ plot_survival(
 \item{output_path}{Path to output image file}
 
 \item{width, height}{Image dimensions in inches}
+}
+\value{
+No return value, called for side effects (saves a plot to file).
 }
 \description{
 Plot survival K-M curve

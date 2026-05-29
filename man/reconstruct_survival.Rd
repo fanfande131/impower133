@@ -13,7 +13,7 @@ reconstruct_survival(
   x2 = 21,
   y1 = 0,
   y2 = 1,
-  output_csv = NULL,
+  output_csv = tempfile(fileext = ".csv"),
   type = c("OS", "PFS")
 )
 }

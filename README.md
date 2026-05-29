@@ -42,7 +42,9 @@ plot_figure2c() - Generate Figure 2C: Subgroup forest plot
 
 ## Usage
 
-See inst/examples/test_impower133.R for a complete example.
+See `inst/examples/test_impower133.R` for a complete example. 
+Simulated data, output figures (tables and plots), and the reconstructed IPD 
+data are also available in `inst/examples/`.
 
 ## Data Sources
 

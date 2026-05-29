@@ -12,7 +12,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' df <- simulate_impower133()
 #' head(df)
 #' }
@@ -20,7 +20,7 @@ simulate_impower133 <- function(seed = 21,
                                 os_path = NULL,
                                 pfs_path = NULL,
                                 method = c("risk_score", "random"),
-                                output_path = "simulated_data.csv") {
+                                output_path = tempfile(fileext = ".csv")) {
   method <- match.arg(method)
   set.seed(seed)
 

@@ -18,7 +18,7 @@ reconstruct_survival <- function(img_path,
                                  nrisk_control,
                                  nrisk_treatment,
                                  x1 = 0, x2 = 21, y1 = 0, y2 = 1,
-                                 output_csv = NULL,
+                                 output_csv = tempfile(fileext = ".csv"),
                                  type = c("OS", "PFS")) {
 
   type <- match.arg(type)
@@ -85,15 +85,15 @@ analyze_survival <- function(ipd_data,
     data = ipd_data
   )
 
-  cat("\n========== ", type, " Median Survival ==========\n")
+  message("\n========== ", type, " Median Survival ==========")
   print(km_fit)
 
   summary_t <- summary(km_fit, times = times)
-  cat(sprintf("\n========== %d-Month %s Rate ==========\n", times, type))
-  cat(sprintf("Placebo: %.1f%% (95%% CI, %.1f%%-%.1f%%)\n",
-              summary_t$surv[1] * 100, summary_t$lower[1] * 100, summary_t$upper[1] * 100))
-  cat(sprintf("Atezolizumab: %.1f%% (95%% CI, %.1f%%-%.1f%%)\n",
-              summary_t$surv[2] * 100, summary_t$lower[2] * 100, summary_t$upper[2] * 100))
+  message(sprintf("\n========== %d-Month %s Rate ==========", times, type))
+  message(sprintf("Placebo: %.1f%% (95%% CI, %.1f%%-%.1f%%)",
+                  summary_t$surv[1] * 100, summary_t$lower[1] * 100, summary_t$upper[1] * 100))
+  message(sprintf("Atezolizumab: %.1f%% (95%% CI, %.1f%%-%.1f%%)",
+                  summary_t$surv[2] * 100, summary_t$lower[2] * 100, summary_t$upper[2] * 100))
 
   cox_fit <- survival::coxph(
     survival::Surv(Survival_time, Status) ~ Treatment_group,
@@ -103,8 +103,8 @@ analyze_survival <- function(ipd_data,
   ci <- exp(stats::confint(cox_fit))
   pval <- summary(cox_fit)$coefficients[5]
 
-  cat(sprintf("\n========== %s Hazard Ratio ==========\n", type))
-  cat(sprintf("HR = %.2f (95%% CI, %.2f-%.2f), P = %.3f\n", hr, ci[1], ci[2], pval))
+  message(sprintf("\n========== %s Hazard Ratio ==========", type))
+  message(sprintf("HR = %.2f (95%% CI, %.2f-%.2f), P = %.3f", hr, ci[1], ci[2], pval))
 
   invisible(list(
     km_fit = km_fit,
@@ -123,10 +123,11 @@ analyze_survival <- function(ipd_data,
 #' @param type "OS" or "PFS"
 #' @param output_path Path to output image file
 #' @param width,height Image dimensions in inches
+#' @return No return value, called for side effects (saves a plot to file).
 #' @export
 plot_survival <- function(ipd_data,
                           type = c("OS", "PFS"),
-                          output_path = NULL,
+                          output_path = tempfile(fileext = ".png"),
                           width = 10, height = 6) {
 
   type <- match.arg(type)

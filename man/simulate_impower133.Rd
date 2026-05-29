@@ -9,7 +9,7 @@ simulate_impower133(
   os_path = NULL,
   pfs_path = NULL,
   method = c("risk_score", "random"),
-  output_path = "simulated_data.csv"
+  output_path = tempfile(fileext = ".csv")
 )
 }
 \arguments{
@@ -31,7 +31,7 @@ Simulate 403 virtual patients' baseline characteristics, efficacy outcomes,
 and safety data based on published summary statistics from Tables 1-3.
 }
 \examples{
-\dontrun{
+\donttest{
 df <- simulate_impower133()
 head(df)
 }

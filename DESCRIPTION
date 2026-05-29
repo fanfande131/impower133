@@ -3,11 +3,16 @@ Type: Package
 Title: Reproduce IMpower133 Clinical Trial Results
 Version: 1.0.0
 Authors@R: c(
-    person("Lu", "Huang", role = c("aut", "cre"), email = "2998785392@qq.com"))
+    person("Lu", "Huang", role = c("aut", "cre"), email = "2998785392@qq.com"),
+    person("Wenkai", "Nie", role = "aut"),
+    person("Qingyang", "Jiang", role = "aut"),
+    person("Qinxin", "Chen", role = "aut"))
 Description: Provides functions to simulate baseline characteristics,
     reconstruct overall survival data from published Kaplan-Meier curves,
-    and generate publication-ready tables and forest plots
-    reproducing the IMpower133 clinical trial results (Horn et al., 2018, NEJM).
+    and generate publication-ready tables and forest plots reproducing
+    the IMpower133 clinical trial results (Horn et al., 2018,
+    <doi:10.1056/NEJMoa1809064>). The IPD reconstruction method is based
+    on Liu et al. (2021, <doi:10.1186/s12874-021-01285-7>).
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
