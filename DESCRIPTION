@@ -12,7 +12,7 @@ Description: Provides functions to simulate baseline characteristics,
     and generate publication-ready tables and forest plots reproducing
     the IMpower133 clinical trial results (Horn et al., 2018,
     <doi:10.1056/NEJMoa1809064>). The IPD reconstruction method is based
-    on Liu et al. (2021, <doi:10.1186/s12874-021-01285-7>).
+    on Liu et al.(2021, <doi:10.1186/s12874-021-01308-8>).
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
