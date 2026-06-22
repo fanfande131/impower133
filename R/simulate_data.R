@@ -330,7 +330,7 @@ simulate_impower133 <- function(seed = 21,
   df$treatment <- factor(df$treatment, levels = c("Atezolizumab", "Placebo"))
 
   # ========== Save ==========
-  utils::write.csv(df, output_path, row.names = FALSE, fileEncoding = "UTF-8")
+  # utils::write.csv(df, output_path, row.names = FALSE, fileEncoding = "UTF-8")
   message("Complete simulated data saved to ", output_path)
 
   return(invisible(df))

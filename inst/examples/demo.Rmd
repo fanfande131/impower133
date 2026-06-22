@@ -1,0 +1,86 @@
+---
+title: "生统"
+author: "黄露 10235001443"
+date: "2026-06-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+devtools::install("C:/Users/总行是只煤球/Desktop/生物统计大作业/impower133")
+library(impower133)
+```
+
+```{r}
+# Step 0: figure to IPD
+img <- system.file("examples/original_figure.jpg", package = "impower133")
+
+trisk   <- c(0:21)
+nrisk_treatment  <- c(201, 191, 187, 182, 180, 174, 159, 142, 130,
+             121, 108, 92, 74, 58, 46, 33, 21, 11, 3, 3, 2, 1)# Atezolizumab
+
+nrisk_control   <- c(202, 194, 189, 186, 183, 171, 160, 146, 131,
+             114, 96, 81, 59, 36, 27, 21, 13, 8, 3, 3, 2, 2)# Placebo
+
+df <- reconstruct_survival (img,trisk,
+                            nrisk_control,
+                            nrisk_treatment,
+                            x1 = 0, x2 = 21, y1 = 0, y2 = 1,
+                            output_csv = "demo_output/reconstructed_os.csv",
+                            type = "OS")
+```
+
+```{r}
+# Step 1: baseline data
+df <- simulate_impower133(
+  seed    = 42,
+  os_path = system.file("examples/overall_IPD.csv", package = "impower133"),
+  method  = "random",
+  output_path = "demo_output/simulated_data.csv"
+)
+cat("done：", nrow(df), "patients\n")
+cat("variable：", paste(names(df), collapse = ", "), "\n")
+```
+
+```{r}
+# Step 2: Table 1 basis
+t1 <- make_table1(df)
+print(t1)
+gt::gtsave(t1, "demo_output/table1.html")
+```
+
+```{r}
+# Step 3: Table 2 response
+t2 <- make_table2(df)
+print(t2)
+gt::gtsave(t2, "demo_output/table2.html")
+```
+
+```{r}
+# Step 4: Table 3 advese events
+t3 <- make_table3(df)
+print(t3)
+gt::gtsave(t3, "demo_output/table3.html")
+```
+
+```{r}
+# Step 5: analysis & KM-vurve
+ipd_path <- system.file("examples/overall_IPD.csv", package = "impower133")
+
+res <- analyze_survival(ipd_path, type = "OS", times = 12)
+plot_survival(ipd_path, type = "OS", output_path = "demo_output/figure2a.png")
+```
+
+```{r}
+ipd_path1 <- "C:/Users/总行是只煤球/Desktop/生物统计大作业/impower133/inst/examples/pfs_IPD.csv"
+res1 <- analyze_survival(ipd_path1, type = "PFS", times = 12)
+plot_survival(ipd_path1, type = "PFS", output_path = "demo_output/figure2b.png")
+```
+
+```{r}
+# Step 6: subset
+plot_figure2c(df, output_path = "demo_output/figure2c.png")
+```
